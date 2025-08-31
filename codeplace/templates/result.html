@@ -1,0 +1,51 @@
+{% load static %}
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Result — Face Detector</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+</head>
+<body>
+    <main class="result-container" role="main">
+        <section class="result-box" aria-label="Detection result">
+            <strong>Result</strong>
+            {% if result %}
+                <a href="{{ result }}" class="download" download title="Download processed image" style="margin-bottom:8px">Download result</a>
+                <img src="{{ result }}" alt="Processed image" loading="lazy">
+            {% else %}
+                <div class="placeholder">Result image not available.</div>
+            {% endif %}
+        </section>
+
+        <aside class="result-fun" aria-label="Details">
+            <div class="info"><b>File Size:</b> {{ size }} KB</div>
+            <div class="info"><b>Detected Faces:</b> {{ faces|length }}</div>
+
+            <div class="info">
+                <h4 style="margin:0 0 8px 0">Random face</h4>
+                {% if random_face %}
+                <div class="face-card">
+                    <img src="{{ random_face }}" alt="Random detected face" loading="lazy">
+                    <div style="color:var(--muted)">
+                        <p style="margin:0"><b>One random face</b></p>
+                        <p style="margin:6px 0 0 0;color:#6b7280;font-size:0.95rem">Crops are saved under /media/faces/</p>
+                    </div>
+                </div>
+                {% else %}
+                    <p style="color:#6b7280;margin:0">No faces detected.</p>
+                {% endif %}
+            </div>
+
+            <div class="actions">
+                <a class="back" href="{% url 'home' %}">← Back</a>
+                {% if result %}
+                <a class="download" href="{{ result }}" download>Download</a>
+                {% endif %}
+            </div>
+        </aside>
+    </main>
+</body>
+</html>

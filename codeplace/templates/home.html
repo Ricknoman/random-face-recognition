@@ -1,0 +1,37 @@
+{% load static %}
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Upload — Face Detector</title>
+</head>
+<body>
+    <main class="box" role="main" aria-labelledby="page-title">
+        <div class="brand">
+            <span>FaceDetect</span>
+            <div class="help">Upload image or capture via webcam</div>
+        </div>
+
+        <h1 id="page-title">Choose an option</h1>
+
+        <div class="upload-row">
+            <form class="file-input-wrap" action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label class="file-label" for="image">Choose file
+                    <input id="image" type="file" name="image" accept="image/*">
+                </label>
+                <button type="submit">Upload</button>
+            </form>
+
+            <form action="{% url 'capture' %}" method="get" style="display:flex;align-items:center;gap:8px;">
+                <button type="submit" class="secondary">Capture via Webcam</button>
+            </form>
+        </div>
+
+        <p class="help">Supported formats: JPG, PNG. Max recommended size: 5MB.</p>
+    </main>
+</body>
+</html>
